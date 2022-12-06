@@ -1,0 +1,85 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application.",
+  "Resources": {
+    "OrderProcessorTask": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "OrderProcessor::OrderProcessor.StepFunctionTasks::ProcessOrder",
+        "Role": "arn:aws:iam::829136968147:role/lambda_execute_role",
+        "Runtime": "dotnetcore3.1",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "FunctionName": "OrderProcessor",
+        "Code": {
+          "S3Bucket": "",
+          "S3Key": ""
+        },
+        "Environment": {
+          "Variables": {
+            "LambdaEnvironment": "dev"
+          }
+        }
+      }
+    },
+    "PaymentProcessorTask": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "OrderProcessor::OrderProcessor.StepFunctionTasks::ProcessPayment",
+        "Role": "arn:aws:iam::829136968147:role/lambda_execute_role",
+        "Runtime": "dotnetcore3.1",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "FunctionName": "PaymentProcessor",
+        "Code": {
+          "S3Bucket": "",
+          "S3Key": ""
+        },
+        "Environment": {
+          "Variables": {
+            "LambdaEnvironment": "dev"
+          }
+        }
+      }
+    },
+
+    "EmailProcessorTask": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "OrderProcessor::OrderProcessor.StepFunctionTasks::ProcessEmail",
+        "Role": "arn:aws:iam::829136968147:role/lambda_execute_role",
+        "Runtime": "dotnetcore3.1",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "FunctionName": "EmailProcessor",
+        "Code": {
+          "S3Bucket": "",
+          "S3Key": ""
+        },
+        "Environment": {
+          "Variables": {
+            "LambdaEnvironment": "dev"
+          }
+        }
+      }
+    },
+    "StateMachine": {
+      "Type": "AWS::StepFunctions::StateMachine",
+      "Properties": {
+        "RoleArn": "arn:aws:iam::829136968147:role/StepFunctionRole",
+        "DefinitionString": {
+          "Fn::Sub": ""
+        },
+        "StateMachineName": "OrderProcessor",
+        "LoggingConfiguration": {
+          "Level": "ALL",
+          "IncludeExecutionData": true,
+          "Destinations": [ { "CloudWatchLogsLogGroup": "arn:aws:logs:us-east-1:829136968147:log-group:/aws/vendedlogs/states/OrderProcessor-Logs:*" } ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+  }
+}

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AWSProjectType>Lambda</AWSProjectType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microservices.CountryCapital.Infrastructure\Microservices.CountryCapital.Infrastructure.csproj" />
+    <ProjectReference Include="..\Microservices.CountryCapital.Services\Microservices.CountryCapital.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="serverless.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

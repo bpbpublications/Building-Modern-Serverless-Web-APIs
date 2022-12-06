@@ -1,0 +1,106 @@
+{
+    "Comment": "State Machine",
+    "StartAt": "OrderProcessor",
+    "States": {
+      "OrderProcessor": {
+        "Type": "Task",
+        "Resource": "${OrderProcessorTask.Arn}",
+        "TimeoutSeconds": 300,
+        "Retry": [
+          {
+            "ErrorEquals": [ "Lambda.ServiceException", "Lambda.SdkClientException", "Lambda.Unknown" ],
+            "IntervalSeconds": 1,
+            "MaxAttempts": 2,
+            "BackoffRate": 2.0
+          }
+        ],
+        "Catch": [
+          {
+            "ErrorEquals": [ "States.TaskFailed" ],
+            "Next": "TaskFailedFallback"
+          },
+          {
+            "ErrorEquals": [ "States.Timeout" ],
+            "Next": "TimeoutFallback"
+          },
+          {
+            "ErrorEquals": [ "States.ALL" ],
+            "Next": "CatchAllFallback"
+          }
+        ],
+        "Next": "PaymentProcessor"
+      },
+      "PaymentProcessor": {
+        "Type": "Task",
+        "Resource": "${PaymentProcessorTask.Arn}",
+        "TimeoutSeconds": 300,
+        "Retry": [
+          {
+            "ErrorEquals": [ "Lambda.ServiceException", "Lambda.SdkClientException", "Lambda.Unknown" ],
+            "IntervalSeconds": 1,
+            "MaxAttempts": 2,
+            "BackoffRate": 2.0
+          }
+        ],
+        "Catch": [
+          {
+            "ErrorEquals": [ "States.TaskFailed" ],
+            "Next": "TaskFailedFallback"
+          },
+          {
+            "ErrorEquals": [ "States.Timeout" ],
+            "Next": "TimeoutFallback"
+          },
+          {
+            "ErrorEquals": [ "States.ALL" ],
+            "Next": "CatchAllFallback"
+          }
+        ],
+        "Next": "EmailProcessor"
+      },
+      "EmailProcessor": {
+        "Type": "Task",
+        "Resource": "${EmailProcessorTask.Arn}",
+        "TimeoutSeconds": 300,
+        "Retry": [
+          {
+            "ErrorEquals": [ "Lambda.ServiceException", "Lambda.SdkClientException", "Lambda.Unknown" ],
+            "IntervalSeconds": 1,
+            "MaxAttempts": 2,
+            "BackoffRate": 2.0
+          }
+        ],
+        "Catch": [
+          {
+            "ErrorEquals": [ "States.TaskFailed" ],
+            "Next": "TaskFailedFallback"
+          },
+          {
+            "ErrorEquals": [ "States.Timeout" ],
+            "Next": "TimeoutFallback"
+          },
+          {
+            "ErrorEquals": [ "States.ALL" ],
+            "Next": "CatchAllFallback"
+          }
+        ],
+        "End": true
+      },
+      
+      "TaskFailedFallback": {
+        "Type": "Fail",
+        "Cause": "Invalid response.",
+        "Error": "Task failed due to error occur in state ."
+      },
+      "TimeoutFallback": {
+        "Type": "Fail",
+        "Cause": "Execution might have stuck somewhere.",
+        "Error": "State fail due to timeout error."
+      },
+      "CatchAllFallback": {
+        "Type": "Fail",
+        "Cause": "Invalid response.",
+        "Error": "Something went wrong as this is caught in states.All state fail."
+      }
+    }
+  }

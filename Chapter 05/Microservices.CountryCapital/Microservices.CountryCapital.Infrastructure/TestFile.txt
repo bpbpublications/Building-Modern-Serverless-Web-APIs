@@ -1,0 +1,1 @@
+﻿[{"Id":1,"Name":"UnitedStates","Code":"US","Capital":"Washington"},{"Id":2,"Name":"India","Code":"IN","Capital":"NewDelhi"},{"Id":3,"Name":"Russia","Code":"RUS","Capital":"Moscow"},{"Id":4,"Name":"Japan","Code":"JP","Capital":"Tokyo"},{"Id":5,"Name":"Mexico","Code":"MX","Capital":"MexicoCity"}]

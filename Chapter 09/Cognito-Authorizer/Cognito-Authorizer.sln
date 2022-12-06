@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1145
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cognito-Authorizer", "Cognito-Authorizer\Cognito-Authorizer.csproj", "{24C7E0A4-93DE-4EE2-986B-21008C2C423D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24C7E0A4-93DE-4EE2-986B-21008C2C423D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C7E0A4-93DE-4EE2-986B-21008C2C423D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C7E0A4-93DE-4EE2-986B-21008C2C423D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C7E0A4-93DE-4EE2-986B-21008C2C423D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F88CBAC4-B9E5-45EF-A148-C87369D0E7D0}
+	EndGlobalSection
+EndGlobal

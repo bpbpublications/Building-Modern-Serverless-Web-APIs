@@ -1,0 +1,45 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "Template for CountryCapital",
+  "Parameters": {
+  },
+  "Globals": {
+    "Api": {
+      "EndpointConfiguration": "REGIONAL",
+      "Cors": {
+        "AllowMethods": "'*,DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT'",
+        "AllowHeaders": "'*,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,access-control-allow-credentials,access-control-allow-origin,x-orgid,x-coachid,x-playerid,x-coachid,x-tournyid,observe,Access-Control-Allow-Origin'",
+        "AllowOrigin": "'*'"
+      },
+      "Name": "Microservices.CountryCapital"
+    }
+  },
+  "Resources": {
+    "DefaultFunction": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "Microservices.CountryCapital.API::Microservices.CountryCapital.API.LambdaEntryPoint::FunctionHandlerAsync",
+        "FunctionName": "CountryCapitalServerlessApi",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "Description": "CountryCapital API",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": "arn:aws:iam::829136968147:role/lambda_execute_role",
+        "Policies": [ "AWSLambdaFullAccess" ],
+        "Events": {
+          "PutResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/{proxy+}",
+              "Method": "ANY"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {
+  }
+}
